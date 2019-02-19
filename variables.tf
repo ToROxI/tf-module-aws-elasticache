@@ -8,6 +8,11 @@ variable "cluster_name" {
   default     = "example-cluster"
 }
 
+variable "cluster_mode_enabled" {
+  description = "Switch to enable cluster mode"
+  default     = "false"
+}
+
 variable "cache_engine" {
   description = "Cache engine selector (only redis is available for now)"
   default     = "redis"

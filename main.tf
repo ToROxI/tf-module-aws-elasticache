@@ -1,5 +1,6 @@
 locals {
   cluster_name = "${var.cluster_name}"
+  cluster_mode = "${ var.cluster_mode_enabled ? ".cluster.on" : "" }"
   default_tags = {}
 }
 
@@ -20,7 +21,7 @@ resource "aws_elasticache_cluster" "redis-with-subnet-group-and-security-group" 
   engine               = "redis"
   node_type            = "${var.node_type}"
   num_cache_nodes      = 1
-  parameter_group_name = "${var.parameter_group_name}"
+  parameter_group_name = "${var.parameter_group_name}${local.cluster_mode}"
   engine_version       = "${var.engine_version}"
   port                 = "${var.cluster_port}"
 
