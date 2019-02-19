@@ -4,7 +4,8 @@ locals {
 }
 
 resource "aws_elasticache_subnet_group" "this" {
-  #   count       = "${ length(var.subnet_ids) == 0 ? 0 : 1 }"
+  #   count = "${ var.module_enabled && "${length(var.subnet_ids)}" > 0 ? 1 : 0 }"
+
   count       = "${ var.module_enabled ? 1 : 0 }"
   name        = "${local.cluster_name}"
   description = "Subnet Group for ${local.cluster_name}"
@@ -12,7 +13,8 @@ resource "aws_elasticache_subnet_group" "this" {
 }
 
 resource "aws_elasticache_cluster" "redis-with-subnet-group-and-security-group" {
-  #   count                = "${ lower(var.cache_engine) == "redis" && length(var.subnet_ids) > 0 && length(var.security_group_ids) > 0 ? 1 : 0 }"
+  #   count = "${ var.module_enabled && "${lower(var.cache_engine)}" == "redis" && "${length(var.subnet_ids)}" > 0 && "${length(var.security_group_ids)}" > 0 ? 1 : 0 }"
+
   count                = "${ var.module_enabled ? 1 : 0 }"
   cluster_id           = "${local.cluster_name}"
   engine               = "redis"
@@ -22,8 +24,7 @@ resource "aws_elasticache_cluster" "redis-with-subnet-group-and-security-group" 
   engine_version       = "${var.engine_version}"
   port                 = "${var.cluster_port}"
 
-  #   subnet_group_name = "${aws_elasticache_subnet_group.this.0.name}"
-  subnet_group_name = "${aws_elasticache_subnet_group.this.name}"
+  subnet_group_name = "${aws_elasticache_subnet_group.this.0.name}"
 
   security_group_ids = ["${var.security_group_ids}"]
 
