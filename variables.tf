@@ -56,3 +56,13 @@ variable "tags" {
     Environment = "test"
   }
 }
+
+variable "availability_zones" {
+  description = "List of AZ"
+  default     = []
+}
+
+variable "replication_enabled" {
+  description = "Switch to enable/disable replica"
+  default     = "true"
+}
