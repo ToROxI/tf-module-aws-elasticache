@@ -46,7 +46,7 @@ resource "aws_elasticache_cluster" "redis-with-subnet-group-and-security-group" 
 #   tags = "${merge(local.default_tags, var.tags)}"
 # }
 
-resource "aws_elasticache_replication_group" "example" {
+resource "aws_elasticache_replication_group" "replication_group" {
   count = "${var.module_enabled && var.replication_enabled ? 1 : 0}"
   automatic_failover_enabled    = true
   availability_zones            = ["${var.availability_zones}"]
@@ -68,5 +68,5 @@ resource "aws_elasticache_replication_group" "example" {
 resource "aws_elasticache_cluster" "replica" {
   count = "${var.module_enabled && var.replication_enabled ? 1 : 0}"
   cluster_id           = "${local.cluster_name}-${count.index}"
-  replication_group_id = "${aws_elasticache_replication_group.example.id}"
+  replication_group_id = "${aws_elasticache_replication_group.replication_group.id}"
 }
