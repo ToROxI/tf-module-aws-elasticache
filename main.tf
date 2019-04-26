@@ -16,7 +16,7 @@ resource "aws_elasticache_subnet_group" "this" {
 resource "aws_elasticache_cluster" "redis-with-subnet-group-and-security-group" {
   #   count = "${ var.module_enabled && "${lower(var.cache_engine)}" == "redis" && "${length(var.subnet_ids)}" > 0 && "${length(var.security_group_ids)}" > 0 ? 1 : 0 }"
 
-  count = "${var.module_enabled && var.replication_enabled ? 0 : 0}"
+  count = "${var.module_enabled && var.replication_enabled ? 0 : 1}"
   cluster_id           = "${local.cluster_name}"
   engine               = "redis"
   node_type            = "${var.node_type}"
