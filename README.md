@@ -16,6 +16,8 @@ Terraform module to setup Elasticache
 | security\_group\_ids | List of VPC Security Group IDs for the cache cluster | list | `<list>` | no |
 | subnet\_ids | List of VPC Subnet IDs for the cache subnet group | list | `<list>` | no |
 | tags | description | map | `<map>` | no |
+| availability\_zones | List of AZ | list | `<list>` | no |
+| replication\_enabled | Switch to enable/disable replica | string | `true` | no |
 
 ## Outputs
 
